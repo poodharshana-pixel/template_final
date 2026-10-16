@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="appointments.xsl"?>
+<appointments>
+  <appointment><customerName>Divya Raman</customerName><phone>9876543210</phone><gender>Female</gender><service>Hair Spa</service><stylist>Meera</stylist><date>2026-10-18</date><timeSlot>10:00-11:00</timeSlot></appointment>
+  <appointment><customerName>Arun Kumar</customerName><phone>9123456780</phone><gender>Male</gender><service>Haircut</service><stylist>Rahul</stylist><date>2026-10-19</date><timeSlot>14:00-15:00</timeSlot></appointment>
+  <appointment><customerName>Meena Priya</customerName><phone>9988776655</phone><gender>Female</gender><service>Facial</service><stylist>Divya</stylist><date>2026-10-20</date><timeSlot>11:00-12:00</timeSlot></appointment>
+</appointments>
