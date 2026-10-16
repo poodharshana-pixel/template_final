@@ -1,0 +1,9 @@
+(function(){'use strict';var app=angular.module('salonApp',[]);
+// Service factory and dependency injection: $http is injected into this service.
+app.factory('AppointmentService',['$http',function($http){var api='/api/appointments';return{getAll:function(){return $http.get(api);},create:function(data){return $http.post(api,data);},update:function(id,data){return $http.put(api+'/'+id,data);},remove:function(id){return $http.delete(api+'/'+id);}};}]);
+app.controller('SalonController',['AppointmentService',function(AppointmentService){var vm=this;vm.appointments=[];vm.genderFilter='';vm.editingId=null;vm.form={};vm.message='';
+vm.load=function(){AppointmentService.getAll().then(function(r){vm.appointments=r.data;}).catch(function(){vm.message='Could not load appointments. Check MongoDB and server.';});};
+vm.save=function(form){vm.message='';if(form.$invalid){vm.message='Please complete every field correctly.';return;}var request=vm.editingId?AppointmentService.update(vm.editingId,vm.form):AppointmentService.create(vm.form);request.then(function(){vm.message=vm.editingId?'Appointment updated.':'Appointment booked successfully.';vm.reset();vm.load();}).catch(function(e){vm.message=(e.data&&e.data.error)||'Could not save appointment.';});};
+vm.edit=function(a){vm.editingId=a._id;vm.form={customerName:a.customerName,phone:a.phone,gender:a.gender,service:a.service,stylist:a.stylist,date:new Date(a.date+'T00:00:00'),timeSlot:a.timeSlot};vm.message='Editing '+a.customerName;window.scrollTo({top:0,behavior:'smooth'});};
+vm.remove=function(a){if(!confirm('Delete appointment for '+a.customerName+'?'))return;AppointmentService.remove(a._id).then(function(){vm.message='Appointment deleted.';vm.load();}).catch(function(){vm.message='Could not delete appointment.';});};
+vm.reset=function(){vm.form={};vm.editingId=null;};vm.load();}]);})();
